@@ -1,3 +1,11 @@
+/******************************************************************************
+* Rogelio Macedo
+* Joystick controlling lED on 8x8 LED Matrix usings 2 shift registers on PORTC
+* Courtesy of University of California, Riverside, CS120B
+* June 4th, 2018
+******************************************************************************/
+
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "timer.h"
