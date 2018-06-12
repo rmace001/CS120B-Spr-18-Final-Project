@@ -104,9 +104,35 @@ int SM1_Tick(int state) {
 			break;
 		default:
 			break;
+			//original
+			if(input < 225 && ADMUX == 0){ //left
+			col_sel = (col_sel > 0xBF) ? 0x7F : (col_sel << 1) |0x01;
+		}
+		//if(input < 225 && ADMUX == 1){ //down
+			//col_val = (col_val >= 0x80) ? 0x80 : col_val << 1;
+		//}
+		if(input > 700 && ADMUX == 0){ //right
+			col_sel = (col_sel < 0xFD) ? 0xFE : (col_sel >> 1) |0x80;
+		}
+		//if(input > 700 && ADMUX == 1){ //up
+			//col_val = (col_val <= 0x01) ? 0x01 : col_val >> 1;
+		//}
+
+
+			//end orig
+
+
+
+
+
 	}
 
-	transmit_data(~col_sel); // PORTA displays column pattern
+
+	//convert col_sel and col_val to an songLED[] element
+	//convert col_val to note[] element
+	//convert col_sel to Song[] index
+
+	transmit_data(col_sel); // PORTA displays column pattern, took ~ off from parameter
 	transmit_data1(col_val); // PORTB selects column to display pattern
 
 	return state;
@@ -119,6 +145,7 @@ int main(void)
 	DDRD = 0xFF; PORTD = 0x00;
 	TimerSet(50);
 	TimerOn();
+	//ADC_init();
 	/* Replace with your application code */
 	while (1)
 	{
